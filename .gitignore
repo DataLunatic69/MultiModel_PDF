@@ -1,0 +1,24 @@
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Environment and dependencies
+.env
+.venv/
+venv/
+env/
+
+# IDE/editor-specific files
+.vscode/
+.idea/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Project-specific folders and files
+/stored_images/
+/vector_db/
+tables.db
