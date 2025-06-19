@@ -20,5 +20,5 @@ Thumbs.db
 
 # Project-specific folders and files
 /stored_images/
-/vector_db/
+/vectorstore_db/
 tables.db

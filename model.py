@@ -1,12 +1,16 @@
 from langchain_groq import ChatGroq
 import sqlite3
 from langchain_community.vectorstores import Chroma
+import os
+
+groq_api_key = os.getenv("GROQ_API_KEY")
+model_name = os.getenv("MODEL_NAME")
 
 def initialize_models():
     """Initialize the language model and storage systems"""
     model = ChatGroq(
-        model_name="llama3-8b-8192", 
-        groq_api_key="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"
+        model_name=model_name, 
+        groq_api_key=groq_api_key
     )
     
     try:
