@@ -1,4 +1,4 @@
-from utilise import process_document, print_summary
+from utilse import process_document, print_summary
 
 if __name__ == "__main__":
     # Install required packages if needed

@@ -18,7 +18,7 @@ def store_images_node(state: DocumentProcessingState) -> Dict[str, Any]:
             
             image_binary = base64.b64decode(image_data["base64_image"])
             image_filename = f"image_{image_data['index']}_{i}.png"
-            image_path = os.path.join("../stored_images", image_filename)
+            image_path = os.path.join("./stored_images", image_filename)
             
             with open(image_path, "wb") as f:
                 f.write(image_binary)
@@ -33,7 +33,7 @@ def store_images_node(state: DocumentProcessingState) -> Dict[str, Any]:
             }
             
             metadata_filename = f"image_metadata_{image_data['index']}_{i}.json"
-            metadata_path = os.path.join("../stored_images", metadata_filename)
+            metadata_path = os.path.join("./stored_images", metadata_filename)
             
             with open(metadata_path, "w") as f:
                 json.dump(metadata, f, indent=2)

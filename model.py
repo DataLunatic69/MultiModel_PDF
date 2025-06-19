@@ -1,7 +1,8 @@
 from langchain_groq import ChatGroq
 import sqlite3
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 import os
+
 
 groq_api_key = os.getenv("GROQ_API_KEY")
 model_name = os.getenv("MODEL_NAME")
@@ -14,7 +15,7 @@ def initialize_models():
     )
     
     try:
-        from langchain_community.embeddings import HuggingFaceEmbeddings
+        from langchain_huggingface import HuggingFaceEmbeddings
         embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
         
         vector_store = Chroma(

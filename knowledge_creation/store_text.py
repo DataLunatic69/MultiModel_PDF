@@ -14,11 +14,11 @@ def store_text_node(state: DocumentProcessingState) -> Dict[str, Any]:
         
         if vector_store is None:
             # Fallback: store as JSON files
-            os.makedirs("../stored_text", exist_ok=True)
+            os.makedirs("./stored_text", exist_ok=True)
             
             for i, text_data in enumerate(state["processed_text"]):
                 text_filename = f"text_chunk_{text_data['index']}_{i}.json"
-                text_path = os.path.join("../stored_text", text_filename)
+                text_path = os.path.join("./stored_text", text_filename)
                 
                 with open(text_path, "w") as f:
                     json.dump(text_data, f, indent=2)
