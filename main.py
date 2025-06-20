@@ -1,7 +1,7 @@
 from utilse import process_document, print_summary
 
 if __name__ == "__main__":
-    # Install required packages if needed
+    
     print("📦 Checking dependencies...")
     try:
         print("✅ Dependencies ready")
@@ -9,7 +9,7 @@ if __name__ == "__main__":
         print(f"❌ Missing dependency: {e}")
         print("💡 Run: pip install sentence-transformers chromadb")
     
-    # Process your document
+
     try:
         result = process_document("2312.10997v5 (1) (2).pdf")
         

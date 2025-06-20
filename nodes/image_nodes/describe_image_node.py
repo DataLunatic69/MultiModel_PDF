@@ -9,7 +9,7 @@ def describe_images_node(state: DocumentProcessingState) -> Dict[str, Any]:
     
     print("🔍 Generating image descriptions...")
     
-    model, _ = initialize_models()
+    model = initialize_models()
     processed_images = []
     
     for image_data in state["images"]:

@@ -1,8 +1,8 @@
 from langgraph.prebuilt import create_react_agent
-from tools.text_retriever_tool import retrieve_text
-from ...model import initialize_models
+from chatbot.tools.text_retriever_tool import retrieve_text
+from chatbot.model import initialize_model
 
-model, _ = initialize_models()
+model = initialize_model()
 
 text_analysis_agent = create_react_agent(
     model=model,

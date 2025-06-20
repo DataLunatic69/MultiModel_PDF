@@ -9,7 +9,7 @@ def describe_tables_node(state: DocumentProcessingState) -> Dict[str, Any]:
     
     print("📈 Generating table descriptions...")
     
-    model, _ = initialize_models()
+    model = initialize_models()
     processed_tables = []
     
     for table_data in state["tables"]:

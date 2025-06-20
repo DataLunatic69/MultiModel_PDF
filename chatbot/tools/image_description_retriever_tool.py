@@ -1,9 +1,11 @@
-from loaders.image_description_loader import load_stored_image_files
-from utilise.image_helper import create_image_description_vector_store_retriever
+from chatbot.loaders.image_description_loader import load_stored_image_files
+from chatbot.utilise.image_helper import create_image_description_vector_store_retriever
+from langchain.tools import tool
 
 image_data = load_stored_image_files()
 image_retriever = create_image_description_vector_store_retriever(image_data)
 
+@tool
 def retrieve_image_text(query):
     """
     Retrieve text chunks based on a query using the vector store retriever.
