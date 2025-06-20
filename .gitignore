@@ -22,3 +22,8 @@ Thumbs.db
 /stored_images/
 vectorstore_db/
 tables.db
+image_vector_store/
+text_vector_store/
+stored_text/
+
+
