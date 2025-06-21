@@ -1,23 +1,32 @@
-from chatbot.loaders.image_description_loader import load_stored_image_files
-from chatbot.utilise.image_helper import create_image_description_vector_store_retriever
+# chatbot/tools/image_description_retriever_tool.py
+from chatbot.utilise.image_helper import get_image_retriever
 from langchain.tools import tool
 
-image_data = load_stored_image_files()
-image_retriever = create_image_description_vector_store_retriever(image_data)
+# Initialize retriever
+image_retriever = get_image_retriever()
 
 @tool
-def retrieve_image_text(query):
+def retrieve_image_text(query: str) -> str:
     """
-    Retrieve text chunks based on a query using the vector store retriever.
+    Retrieve relevant image descriptions based on a query
     
     Args:
-        query (str): The query string to search for in the text data.
-    
+        query: The search query string
+        
     Returns:
-        list: List of retrieved text chunks that match the query.
+        Concatenated relevant image descriptions or error message
     """
-    response = image_retriever.invoke(query)
-    if response and hasattr(response, 'text'):
-        return response.text
-    else:
-        return "No relevant text found for the query."
+    try:
+        docs = image_retriever.get_relevant_documents(query)
+        if not docs:
+            return "No relevant image descriptions found"
+            
+        results = []
+        for doc in docs:
+            results.append(doc.page_content)
+            if 'image_path' in doc.metadata:
+                results.append(f"Image location: {doc.metadata['image_path']}")
+        
+        return "\n\n".join(results)
+    except Exception as e:
+        return f"Image retrieval error: {str(e)}"

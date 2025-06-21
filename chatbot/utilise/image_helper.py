@@ -1,46 +1,61 @@
-from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
-from langchain.indexes.vectorstore import VectorStoreIndexWrapper
-    
+from typing import Optional
+import torch
+import logging
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-def create_image_description_vector_store_retriever(image_data, persist_directory="image_vector_store", chunk_size=500, chunk_overlap=0):
-    """
-    Creates a vector store and retriever from text documents.
+# Global variable declaration
+_image_vector_store: Optional[Chroma] = None
+
+def get_image_vector_store() -> Chroma:
+    """Initialize image vector store with proper device handling"""
+    global _image_vector_store
     
-    Args:
-        text_data: List of loaded text documents
-        persist_directory: Directory to persist the vector store (default: "text_vector_store")
-        chunk_size: Size of text chunks for splitting (default: 500)
-        chunk_overlap: Overlap between chunks (default: 0)
+    if _image_vector_store is None:
+        try:
+            # Force CPU initialization first
+            logger.info("Initializing embeddings with CPU first")
+            embeddings = HuggingFaceEmbeddings(
+                model_name="all-MiniLM-L6-v2",
+                model_kwargs={'device': 'cpu'},
+                encode_kwargs={'normalize_embeddings': True}
+            )
+            
+            # Test embeddings
+            test_embedding = embeddings.embed_query("test")
+            logger.info(f"Embedding test successful. Vector length: {len(test_embedding)}")
+            
+            # Now try GPU if available
+            if torch.cuda.is_available():
+                try:
+                    logger.info("Attempting GPU initialization")
+                    embeddings = HuggingFaceEmbeddings(
+                        model_name="all-MiniLM-L6-v2",
+                        model_kwargs={'device': 'cuda'},
+                        encode_kwargs={'normalize_embeddings': True}
+                    )
+                    test_embedding = embeddings.embed_query("test")
+                    logger.info("GPU initialization successful")
+                except Exception as e:
+                    logger.warning(f"GPU initialization failed, falling back to CPU: {str(e)}")
+            
+            _image_vector_store = Chroma(
+                collection_name="image_descriptions",
+                embedding_function=embeddings,
+                persist_directory="image_vector_store"
+            )
+            logger.info("Image vector store initialized successfully")
+            
+        except Exception as e:
+            logger.error(f"Failed to initialize image vector store: {str(e)}")
+            raise RuntimeError(f"Image vector store initialization failed: {str(e)}")
     
-    Returns:
-        tuple: (vector_store, retriever, vector_store_index)
-    """
-    
-    # Split documents into chunks
-    image_text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
-        chunk_size=chunk_size, 
-        chunk_overlap=chunk_overlap
-    )
-    image_doc_splits = image_text_splitter.split_documents(image_data)
-    
-    # Create embeddings
-    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-    
-    # Create vector store
-    vector_store = Chroma(
-        embedding_function=embeddings,
-        persist_directory=persist_directory,  
-    )
-    
-    # Add documents to vector store
-    vector_store.add_documents(image_doc_splits)
-    print(f"Inserted {len(image_doc_splits)} documents.")
-    
-    # Create index wrapper and retriever
-    vector_store_index = VectorStoreIndexWrapper(vectorstore=vector_store)
-    retriever = vector_store.as_retriever()
-    
-    return  retriever
+    return _image_vector_store
+
+def get_image_retriever():
+    """Get the retriever from the image vector store"""
+    return get_image_vector_store().as_retriever()
