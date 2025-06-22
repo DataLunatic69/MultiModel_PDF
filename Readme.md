@@ -148,38 +148,78 @@ Modify `streamlit_app/config/settings.py` for:
 ## 📁 Project Structure
 
 ```
-datalunatic69-multimodel_pdf/
-├── 🐳 Docker Configuration
-│   ├── Dockerfile                   # Main container definition
-│   ├── docker-compose.yml           # Multi-service orchestration
-│   └── .dockerignore               # Docker build exclusions
-├── 📄 Core Processing
-│   ├── main.py                     # Document processing entry point
-│   ├── utilse.py                   # Processing utilities
-│   ├── model.py                    # LLM initialization
-│   └── requirements.txt            # Python dependencies
-├── 🤖 Chatbot System
-│   └── chatbot/
-│       ├── interface.py            # Agent interface
-│       ├── main.py                 # Supervisor agent
-│       ├── model.py                # Model management
-│       ├── subagents/              # Specialist agents
-│       ├── tools/                  # Retrieval tools
-│       └── utilise/                # Helper utilities
-├── 🎨 Web Interface
-│   └── streamlit_app/
-│       ├── main.py                 # Application entry point
-│       ├── config/                 # Configuration settings
-│       ├── core/                   # Core functionality
-│       ├── components/             # UI components
-│       └── utils/                  # Utility functions
-├── 🔄 Processing Pipeline
-│   ├── nodes/                      # Processing nodes
-│   ├── orchestration/              # Workflow management
-│   └── knowledge_creation/         # Storage systems
-└── 📚 Documentation
-    ├── docs/Architecture.md        # System architecture
-    └── README.md                   # This file
+Directory structure:
+└── datalunatic69-multimodel_pdf/
+    ├── Readme.md
+    ├── __init__.py
+    ├── main.py
+    ├── model.py
+    ├── requirements.txt
+    ├── utilse.py
+    ├── .env.example
+    ├── chatbot/
+    │   ├── __init__.py
+    │   ├── interface.py
+    │   ├── main.py
+    │   ├── model.py
+    │   ├── subagents/
+    │   │   ├── __init__.py
+    │   │   ├── image_analysis_agent.py
+    │   │   ├── table_analysis_agent.py
+    │   │   └── text_analysis_agent.py
+    │   ├── tools/
+    │   │   ├── __init__.py
+    │   │   ├── database_tool.py
+    │   │   ├── image_description_retriever_tool.py
+    │   │   └── text_retriever_tool.py
+    │   └── utilise/
+    │       ├── __init__.py
+    │       ├── image_helper.py
+    │       └── text_helper.py
+    ├── Dockerfiles/
+    │   ├── docker_compose.yml
+    │   ├── dockerfile
+    │   └── .dockerignore
+    ├── docs/
+    │   └── Architecture.md
+    ├── knowledge_creation/
+    │   ├── __init__.py
+    │   ├── store_image.py
+    │   ├── store_table.py
+    │   └── store_text.py
+    ├── nodes/
+    │   ├── __init__.py
+    │   ├── parsing_document_node.py
+    │   ├── image_nodes/
+    │   │   ├── __init.py
+    │   │   ├── describe_image_node.py
+    │   │   └── image_extrator_node.py
+    │   ├── table_nodes/
+    │   │   ├── __init__.py
+    │   │   ├── describe_table_node.py
+    │   │   └── table_extractor_node.py
+    │   └── text_nodes/
+    │       ├── __init__.py
+    │       ├── describe_text_node.py
+    │       └── text_extractor_node.py
+    ├── orchestration/
+    │   ├── __init__.py
+    │   ├── states.py
+    │   └── workflows.py
+    └── streamlit_app/
+        ├── __init__.py
+        ├── app.py
+        ├── components/
+        │   ├── __init__.py
+        │   ├── chat_interface.py
+        │   ├── response_utils.py
+        │   ├── sidebar.py
+        │   └── styles.py
+        └── utils/
+            ├── __init__.py
+            ├── agents.py
+            └── logging.py
+
 ```
 
 ## 🧠 Technology Stack
