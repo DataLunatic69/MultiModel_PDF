@@ -1,4 +1,4 @@
-from utilse import process_document, print_summary
+from .utilse import process_document, print_summary
 
 if __name__ == "__main__":
     
