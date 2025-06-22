@@ -1,0 +1,67 @@
+# Use Python 3.11 slim as base image
+FROM python:3.11-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    tesseract-ocr \
+    poppler-utils \
+    libmagic1 \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    libgomp1 \
+    git \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY . .
+
+# Create necessary directories
+RUN mkdir -p stored_images stored_text text_vector_store image_vector_store
+
+# Set environment variables
+ENV PYTHONPATH=/app
+ENV STREAMLIT_SERVER_PORT=8501
+ENV STREAMLIT_SERVER_ADDRESS=0.0.0.0
+
+# Expose port
+EXPOSE 8501
+
+# Create entrypoint script
+RUN echo '#!/bin/bash\n\
+echo "🚀 Starting Multimodal PDF Processing System..."\n\
+echo "📦 Environment: Docker Container"\n\
+echo "🔧 Python Path: $PYTHONPATH"\n\
+echo "📁 Working Directory: $(pwd)"\n\
+echo ""\n\
+# Check if environment variables are set\n\
+if [ -z "$GROQ_API_KEY" ]; then\n\
+    echo "⚠️  WARNING: GROQ_API_KEY not set!"\n\
+    echo "💡 Please set it using: docker run -e GROQ_API_KEY=your_key ..."\n\
+fi\n\
+\n\
+if [ -z "$MODEL_NAME" ]; then\n\
+    echo "⚠️  WARNING: MODEL_NAME not set!"\n\
+    echo "💡 Please set it using: docker run -e MODEL_NAME=llama3-70b-8192 ..."\n\
+fi\n\
+\n\
+echo "🌐 Starting Streamlit server on http://localhost:8501"\n\
+exec streamlit run streamlit_app/main.py --server.address=0.0.0.0 --server.port=8501\n\
+' > /app/entrypoint.sh && chmod +x /app/entrypoint.sh
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8501/_stcore/health || exit 1
+
+# Run the application
+ENTRYPOINT ["/app/entrypoint.sh"]

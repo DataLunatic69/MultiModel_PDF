@@ -1,2 +1,102 @@
-unstructured[pdf]
-unstructured[local-inference]
+# Core framework dependencies
+streamlit>=1.28.0
+langchain>=0.1.0
+langchain-groq>=0.1.0
+langchain-huggingface>=0.0.3
+langchain-chroma>=0.1.0
+langchain-text-splitters>=0.0.1
+langgraph>=0.0.40
+
+# Document processing
+unstructured[pdf]>=0.11.0
+unstructured[local-inference]>=0.11.0
+
+# Vector store and embeddings
+chromadb>=0.4.15
+sentence-transformers>=2.2.2
+
+# Machine Learning
+torch>=2.0.0
+transformers>=4.35.0
+
+# Data processing
+pandas>=2.0.0
+numpy>=1.24.0
+Pillow>=10.0.0
+
+# Database
+sqlite3
+
+# API and networking
+requests>=2.31.0
+urllib3>=2.0.0
+
+# Utility libraries
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+typing-extensions>=4.8.0
+
+# Development and testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# Logging and monitoring
+loguru>=0.7.0
+
+# Text processing
+tiktoken>=0.5.0
+
+# Image processing
+opencv-python-headless>=4.8.0
+
+# PDF processing dependencies
+pdf2image>=3.1.0
+pymupdf>=1.23.0
+pdfplumber>=0.10.0
+
+# Additional ML utilities
+scipy>=1.11.0
+scikit-learn>=1.3.0
+
+# Web scraping and HTTP
+httpx>=0.25.0
+aiohttp>=3.8.0
+
+# File handling
+pathlib2>=2.3.7
+fsspec>=2023.6.0
+
+# Jupyter support (optional)
+jupyter>=1.0.0
+ipywidgets>=8.0.0
+
+# Memory optimization
+psutil>=5.9.0
+
+# Async support
+asyncio
+aiofiles>=23.0.0
+
+# Configuration management
+pyyaml>=6.0.1
+toml>=0.10.2
+
+# Progress bars and UI
+tqdm>=4.66.0
+rich>=13.0.0
+
+# Date and time handling
+python-dateutil>=2.8.2
+
+# JSON handling
+orjson>=3.9.0
+
+# Cryptography for secure operations
+cryptography>=41.0.0
+
+# Performance monitoring
+memory-profiler>=0.61.0
+
+# Additional Streamlit components
+streamlit-chat>=0.1.1
+streamlit-option-menu>=0.3.6
