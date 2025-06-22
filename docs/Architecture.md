@@ -3,10 +3,10 @@
 ## High-Level System Architecture
 
 ### Phase 1: Document Processing Pipeline
-![Phase 1 Architecture](phase1.png)
+![Phase 1 Architecture](Phase1.png)
 
 ### Phase 2: Multi-Agent Query System
-![Phase 2 Architecture](phase2.png)
+![Phase 2 Architecture](Phase2.png)
 
 ## System Overview
 
