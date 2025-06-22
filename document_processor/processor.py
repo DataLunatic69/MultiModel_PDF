@@ -32,6 +32,16 @@ class DocumentProcessor:
         self.processing_complete = True
         return result
     
+    def _get_document_hash(self, file_path: str) -> str:
+    
+       import hashlib
+       with open(file_path, "rb") as f:
+           
+           file_hash = hashlib.md5()
+           while chunk := f.read(8192):
+            file_hash.update(chunk)
+       return file_hash.hexdigest()
+    
     def _save_processing_result(self, result: Dict[str, Any]):
         """Save processing results to disk"""
         os.makedirs("processing_results", exist_ok=True)
@@ -47,5 +57,10 @@ class DocumentProcessor:
             return True
         except:
             return False
+        
+    def is_document_processed(self, file_path: str) -> bool:
+    
+        document_hash = self._get_document_hash(file_path)
+        return self.load_processing_result(document_hash)
 
 processor = DocumentProcessor()

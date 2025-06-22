@@ -17,7 +17,7 @@ def retrieve_text(query: str) -> str:
         Concatenated relevant text chunks with metadata
     """
     try:
-        docs = text_retriever.get_relevant_documents(query)
+        docs = text_retriever.invoke(query)
         if not docs:
             return "No relevant text found"
             

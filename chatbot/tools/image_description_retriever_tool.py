@@ -17,7 +17,7 @@ def retrieve_image_text(query: str) -> str:
         Concatenated relevant image descriptions or error message
     """
     try:
-        docs = image_retriever.get_relevant_documents(query)
+        docs = image_retriever.invoke(query)
         if not docs:
             return "No relevant image descriptions found"
             
