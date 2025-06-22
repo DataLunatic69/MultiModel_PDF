@@ -3,10 +3,10 @@
 ## High-Level System Architecture
 
 ### Phase 1: Document Processing Pipeline
-![Phase 1 Architecture](phase1.png)
+![Phase 1 Architecture](Phase1.png)
 
 ### Phase 2: Multi-Agent Query System
-![Phase 2 Architecture](phase2.png)
+![Phase 2 Architecture](Phase2.png)
 
 ## System Overview
 
@@ -51,7 +51,7 @@ PDF Input → Unstructured Partition → Raw Elements + Text Chunks
 #### 3. Content Enhancement
 
 **Image Description (`nodes/image_nodes/describe_image_node.py`)**
-- Uses LLM to generate detailed image descriptions
+- Uses LLM (llama3-70b-8192) to generate detailed image descriptions
 - Combines figure captions with visual analysis
 - Creates searchable text representations of visual content
 
@@ -253,30 +253,35 @@ CREATE TABLE table_metadata (
 - **Cross-Modal Retrieval:** Find text based on image content and vice versa
 - **Relationship Mapping:** Automatically link related content across modalities
 
-### 2. Advanced Analytics
+### 2. Advanced Chunking Strategies
+- **Hierarchical Chunking for Images:** Implement custom hierarchical chunking for image descriptions where each description is stored in a separate, non-overlapping chunk. This prevents interference between different image descriptions and maintains clean separation of visual content context. This technique requires pure Python implementation as no existing frameworks provide this specialized approach.
+- **Late Chunking for Text:** Utilize late chunking techniques for textual content to introduce global knowledge of all tokens before chunking decisions are made. This approach allows the system to understand the complete document context before creating semantic boundaries, resulting in more coherent and contextually-aware text chunks. Implementation requires custom logic and careful token-level analysis, as current frameworks don't support this advanced technique.
+- **Token-Level Context Preservation:** Develop custom algorithms that analyze global token relationships before making chunking decisions, ensuring optimal information retention and retrieval performance.
+
+### 3. Advanced Analytics
 - **Trend Analysis:** Time-series analysis of table data
 - **Citation Networks:** Build knowledge graphs from document references
 - **Content Summarization:** Generate executive summaries across documents
 
-### 3. Scalability Improvements
+### 4. Scalability Improvements
 - **Batch Processing:** Handle multiple documents simultaneously
 - **Distributed Storage:** Scale to enterprise vector databases
 - **Caching Layer:** Redis for frequently accessed content
 - **API Layer:** RESTful API for external integrations
 
-### 4. User Experience Enhancements
+### 5. User Experience Enhancements
 - **Interactive Visualizations:** Dynamic charts and graphs from table data
 - **Document Annotation:** Allow users to add notes and highlights
 - **Export Capabilities:** Generate reports in various formats
 - **Collaborative Features:** Multi-user document analysis
 
-### 5. Advanced AI Capabilities
+### 6. Advanced AI Capabilities
 - **Fine-tuned Models:** Domain-specific models for technical documents
 - **Active Learning:** Improve retrieval based on user feedback
 - **Automated Fact-Checking:** Cross-reference claims across documents
 - **Intelligent Summarization:** Generate section-wise summaries
 
-### 6. Production Readiness
+### 7. Production Readiness
 - **Authentication & Authorization:** Secure access control
 - **Monitoring & Logging:** Comprehensive observability
 - **Performance Optimization:** Query optimization and caching
