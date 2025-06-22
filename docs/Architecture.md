@@ -246,54 +246,65 @@ CREATE TABLE table_metadata (
 - Agent initialization through factory methods
 - Consistent configuration management
 
-## Future Improvements & Extensions
+Future Improvements & Extensions
+1. Enhanced Multi-Modal Understanding
 
-### 1. Enhanced Multi-Modal Understanding
-- **Vision-Language Models:** Integrate models like GPT-4V for direct image analysis
-- **Cross-Modal Retrieval:** Find text based on image content and vice versa
-- **Relationship Mapping:** Automatically link related content across modalities
+Vision-Language Models: Integrate models like GPT-4V for direct image analysis
+Cross-Modal Retrieval: Find text based on image content and vice versa
+Relationship Mapping: Automatically link related content across modalities
 
-### 2. Advanced Analytics
-- **Trend Analysis:** Time-series analysis of table data
-- **Citation Networks:** Build knowledge graphs from document references
-- **Content Summarization:** Generate executive summaries across documents
+2. Advanced Chunking Strategies
 
-### 3. Scalability Improvements
-- **Batch Processing:** Handle multiple documents simultaneously
-- **Distributed Storage:** Scale to enterprise vector databases
-- **Caching Layer:** Redis for frequently accessed content
-- **API Layer:** RESTful API for external integrations
+Hierarchical Chunking for Images: Implement custom hierarchical chunking for image descriptions where each description is stored in a separate, non-overlapping chunk. This prevents interference between different image descriptions and maintains clean separation of visual content context. This technique requires pure Python implementation as no existing frameworks provide this specialized approach.
+Late Chunking for Text: Utilize late chunking techniques for textual content to introduce global knowledge of all tokens before chunking decisions are made. This approach allows the system to understand the complete document context before creating semantic boundaries, resulting in more coherent and contextually-aware text chunks. Implementation requires custom logic and careful token-level analysis, as current frameworks don't support this advanced technique.
+Token-Level Context Preservation: Develop custom algorithms that analyze global token relationships before making chunking decisions, ensuring optimal information retention and retrieval performance.
 
-### 4. User Experience Enhancements
-- **Interactive Visualizations:** Dynamic charts and graphs from table data
-- **Document Annotation:** Allow users to add notes and highlights
-- **Export Capabilities:** Generate reports in various formats
-- **Collaborative Features:** Multi-user document analysis
+3. Advanced Analytics
 
-### 5. Advanced AI Capabilities
-- **Fine-tuned Models:** Domain-specific models for technical documents
-- **Active Learning:** Improve retrieval based on user feedback
-- **Automated Fact-Checking:** Cross-reference claims across documents
-- **Intelligent Summarization:** Generate section-wise summaries
+Trend Analysis: Time-series analysis of table data
+Citation Networks: Build knowledge graphs from document references
+Content Summarization: Generate executive summaries across documents
 
-### 6. Production Readiness
-- **Authentication & Authorization:** Secure access control
-- **Monitoring & Logging:** Comprehensive observability
-- **Performance Optimization:** Query optimization and caching
-- **Data Privacy:** PII detection and redaction
+4. Scalability Improvements
 
-## Security & Privacy Considerations
+Batch Processing: Handle multiple documents simultaneously
+Distributed Storage: Scale to enterprise vector databases
+Caching Layer: Redis for frequently accessed content
+API Layer: RESTful API for external integrations
 
-1. **Local Processing:** All data processed locally, no external API calls for sensitive content
-2. **Data Encryption:** Consideration for encrypting stored vector data
-3. **Access Control:** Role-based access to different document types
-4. **Audit Logging:** Track all document processing and query activities
+5. User Experience Enhancements
 
-## Performance Characteristics
+Interactive Visualizations: Dynamic charts and graphs from table data
+Document Annotation: Allow users to add notes and highlights
+Export Capabilities: Generate reports in various formats
+Collaborative Features: Multi-user document analysis
 
-- **Processing Speed:** ~2-5 minutes for typical academic paper (10-20 pages)
-- **Storage Efficiency:** Vector compression for large document collections
-- **Query Performance:** Sub-second response times for most queries
-- **Memory Usage:** Optimized for systems with 8GB+ RAM
+6. Advanced AI Capabilities
+
+Fine-tuned Models: Domain-specific models for technical documents
+Active Learning: Improve retrieval based on user feedback
+Automated Fact-Checking: Cross-reference claims across documents
+Intelligent Summarization: Generate section-wise summaries
+
+7. Production Readiness
+
+Authentication & Authorization: Secure access control
+Monitoring & Logging: Comprehensive observability
+Performance Optimization: Query optimization and caching
+Data Privacy: PII detection and redaction
+
+Security & Privacy Considerations
+
+Local Processing: All data processed locally, no external API calls for sensitive content
+Data Encryption: Consideration for encrypting stored vector data
+Access Control: Role-based access to different document types
+Audit Logging: Track all document processing and query activities
+
+Performance Characteristics
+
+Processing Speed: ~2-5 minutes for typical academic paper (10-20 pages)
+Storage Efficiency: Vector compression for large document collections
+Query Performance: Sub-second response times for most queries
+Memory Usage: Optimized for systems with 8GB+ RAM
 
 This architecture provides a robust foundation for multi-modal document processing while maintaining flexibility for future enhancements and scale requirements.
