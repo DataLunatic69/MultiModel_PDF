@@ -29,7 +29,7 @@ A sophisticated AI-powered system for processing complex PDF documents containin
 - **Token usage tracking** for cost awareness
 - **System health monitoring** with status indicators
 
-![Results Interface](result.png)
+![Results Interface](Result.png)
 
 ## 🏗️ System Architecture
 
